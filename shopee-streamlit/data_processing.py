@@ -160,31 +160,21 @@ def transform(data):
     data['price_min'] = min_discount_price
     data['price_max'] = max_discount_price
 
-    price_max_before_discount_lst = []
-    price_min_before_discount_lst = []
-    print(len(data))
-    for i, row in data.iterrows():
-        if row['price_max_before_discount'] != -1:
-            price_max_before_discount = row['price_max_before_discount'] // 100000
-        else:
-            price_max_before_discount = row['price_max']
-        if row['price_min_before_discount'] != -1:
-            price_min_before_discount = row['price_min_before_discount'] // 100000
-        else:
-            price_min_before_discount = row['price_min']
-        price_max_before_discount_lst.append(price_max_before_discount)
-        price_min_before_discount_lst.append(price_min_before_discount)
+    # OPTIMIZED from 6sec to 0.2sec
+    price_max_before_discount_lst = [(pmbd // 100000) if pmbd != -1 else pm for pmbd, pm in zip(data['price_max_before_discount'], data['price_max'])]
+    price_min_before_discount_lst = [(pmbd // 100000) if pmbd != -1 else pm for pmbd, pm in zip(data['price_min_before_discount'], data['price_min'])]
     data['price_max_before_discount'] = price_max_before_discount_lst
     data['price_min_before_discount'] = price_min_before_discount_lst
 
     colors = []
     sizes = []
-    for i, row in data.iterrows():
+    # OPTIMIZED from 6sec to 1sec
+    for i, row in zip(data.index, data['tier_variations']):
         a = False
         b = False
         images = None
-        if type(row['tier_variations']) == list:
-            for var in row['tier_variations']:
+        if type(row) == list:
+            for var in row:
                 name = var['name']
                 if name:
                     if not a and name[0] in ['M', 'C']:
@@ -194,7 +184,7 @@ def transform(data):
                     elif not b and name[0] in ['S', 'K']:
                         sizes.append(','.join(var['options']))
                         b = True
-
+            
             if a and images:
                 data.at[i, 'images'] = images
 
@@ -202,7 +192,7 @@ def transform(data):
             colors.append(np.nan)
 
         if not b:
-            sizes.append(np.nan)
+            sizes.append(np.nan)    
 
     print(len(colors))
     print(len(sizes))
