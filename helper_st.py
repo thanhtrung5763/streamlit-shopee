@@ -6,18 +6,32 @@ import streamlit as st
 
 
 @st.cache_data
-def get_data(path):
-    
-    extract_path = f'{os.getcwd()}{path}'
-    files = glob.glob(os.path.join(extract_path, '*.csv'))
-    li = []
-    for file in files:
-        f = open(file)
-        df = pd.read_csv(f, dtype={'shop_id': str, 'sb_shop_id': str, 'ctime': str,})
-        li.append(df)
-    files.clear()
+def get_data(path, type='csv'):
 
-    df = pd.concat(li, axis=0, ignore_index=True)
+    li = []
+    extract_path = f'{os.getcwd()}{path}'
+
+    if type == 'csv':
+        files = glob.glob(os.path.join(extract_path, '*.csv'))
+        li = []
+        print(len(files))
+        for file in files:
+            df = pd.read_csv(file, dtype={'shop_id': str, 'sb_shop_id': str, 'ctime': str,})
+            li.append(df)
+        files.clear()
+
+        df = pd.concat(li, axis=0, ignore_index=True)
+    elif type == 'parquet':
+        files = glob.glob(os.path.join(extract_path, '*.parquet'))
+        li = []
+        print(len(files))
+        for file in files:
+            df = pd.read_parquet(file)
+            li.append(df)
+        files.clear()
+
+        df = pd.concat(li, axis=0, ignore_index=True)
+        
     df = df.sort_values('scraping_day')
     return df
 

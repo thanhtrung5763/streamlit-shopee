@@ -51,7 +51,7 @@ def best_product_selling(df):
 
 def general():
 
-    df = helper_st.get_data('/shopee-streamlit/data_with_tag')
+    df = helper_st.get_data('/shopee-streamlit/data_with_tag_parquet', type='parquet')
     days = df['scraping_day'].unique().tolist()
     df['sale'] = ((df['price_max_before_discount'] +
                    df['price_min_before_discount']) // 2 * df['sold'])

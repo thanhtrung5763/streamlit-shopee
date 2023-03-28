@@ -64,7 +64,7 @@ def main():
     if menu == 'General':
         general()
     elif menu == 'Shop Info':
-        data = helper_st.get_data('/shopee-streamlit/data_with_tag')
+        data = helper_st.get_data('/shopee-streamlit/data_with_tag_parquet', type='parquet')
         days = data['scraping_day'].unique().tolist()
         shop_id = '495701296'
 
