@@ -147,9 +147,6 @@ def product_info(data):
 
     product = f'''
         <section class="info-section section-product-info">
-        <header>
-            <h3 class="title">Product Information</h3>
-        </header>
         <div class="section-contents">
             <div class="info-grouped">
                 <div class="grouped-header">
@@ -189,18 +186,7 @@ def product_info(data):
 
 def product_tag(data):
 
-    product = f'''<section class="info-section" style="margin-top: 0px; padding-top: 40px;">
-        <header>
-            <h3 class="title">Product Tags<span class="bar"></span>
-                <div class="ui-control ui-select-control undefined  type-attribute  outline  outline-0">
-                    <div class="select-control-container css-b62m3t-container"><span
-                            id="react-select-ai-attribute-live-region" class="css-7pg0cj-a11yText"></span><span
-                            aria-live="polite" aria-atomic="false" aria-relevant="additions text"
-                            class="css-7pg0cj-a11yText"></span>
-                    </div>
-                </div>
-            </h3>
-        </header><input type="hidden" name="categoryGroup" value="CLOTHING">
+    product = f'''<section class="info-section">
         <div class="section-contents">
             <div class="info-grouped">
                 <div class="grouped-header">

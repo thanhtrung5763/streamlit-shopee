@@ -51,8 +51,7 @@ def read_data(extract_path, type='json'):
     li = []
 
     if type == 'json':
-        files = glob.glob(os.path.join(
-            extract_path, '**/*.json'), recursive=True)
+        files = glob.glob(os.path.join(extract_path, '**/*.json'), recursive=True)
         print(len(files))
         for file in files:
             f = open(file)
@@ -66,14 +65,21 @@ def read_data(extract_path, type='json'):
         li = []
         print(len(files))
         for file in files:
-            f = open(file)
-            df = pd.read_csv(
-                f, dtype={'shop_id': str, 'sb_shop_id': str, 'ctime': str, })
+            df = pd.read_csv(file, dtype={'shop_id': str, 'sb_shop_id': str, 'ctime': str,})
             li.append(df)
         files.clear()
 
         df = pd.concat(li, axis=0, ignore_index=True)
+    elif type == 'parquet':
+        files = glob.glob(os.path.join(extract_path, '*.parquet'))
+        li = []
+        print(len(files))
+        for file in files:
+            df = pd.read_parquet(file)
+            li.append(df)
+        files.clear()
 
+        df = pd.concat(li, axis=0, ignore_index=True)
     return df
 
 
@@ -466,7 +472,7 @@ def main():
     
     # CASE 2: Do not have any task data before, so we get data of one day first, bulk it. After that, fetch by task_id
     # task_id, no_done = bulk_tag_product_put(product_tdf=data)
-    # tag_datas = bulk_fetch_tag_data(task_id=task_id)
+    # tag_datas = fetch_tag_data(task_id=task_id)
     # tag_tdf = transform_tag_data(tag_datas=tag_datas)
 
     data_tagged = match_tag_data(product_tdf=data, 

@@ -25,9 +25,12 @@ body {
     margin: 0
 }
 
-.section-contents,
+
+.section-contents {
+    margin-top: 0;
+}
 .section-contents .section-footer {
-    margin-top: 20px;
+    margin-top: 8px;
 }
 
 .section-contents .info-grouped {
@@ -103,7 +106,7 @@ body {
 }
 
 .section-contents .list-products {
-    margin-top: 20px
+    margin-top: 12px
 }
 
 .btn-detection-inner {
@@ -138,12 +141,13 @@ body {
     color: #f8f9fa;
     border-radius: 5px;
     padding: 5px;
+    margin-bottom: 48px;
 }
 
 
 /* Background for chart */
 .user-select-none.svg-container {
-    background-color: #16283b;
+    background-color: #262730;
     border-radius: 16px;
     box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.4); 
 }
