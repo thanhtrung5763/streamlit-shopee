@@ -125,7 +125,7 @@ def plt_market_share_color(df_selection):
     fig.update_traces(textposition='inside', textinfo='percent+label')
     fig = config_chart(fig=fig, type='pie')
 
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 def plt_market_share_category(df_selection):
     category_ms = df_selection['category'].value_counts().reset_index()
@@ -137,7 +137,7 @@ def plt_market_share_category(df_selection):
                 title='Category')
     fig = config_chart(fig=fig, type='pie')
 
-    st.plotly_chart(fig)
+    st.plotly_chart(fig, use_container_width=True)
 
 def plt_sold_per_category(df_selection):
     sold_per_category = df_selection.groupby(['category'], dropna=False)['sold'].sum(
